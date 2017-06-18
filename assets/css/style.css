@@ -1,0 +1,41 @@
+body {
+	width: 960px;
+	margin: 0 auto;
+}
+
+.wrap {
+	width: 100%;
+	margin: 100px auto;
+}
+
+h1 {
+	font-size: 200%;
+	font-family: "Lobster", sans-serif;
+	margin-bottom: 20px;
+}
+
+p {	
+	font-family: "Oxygen", sans-serif;
+
+}
+
+#firstP {	
+	margin-bottom: 20px;
+	color: #5cb85c;
+	font-weight: bold;
+
+}
+
+#wins, #losses, #winsValue, #lossesValue {
+	display: inline;
+}
+
+#lettersGuessed {
+	margin-bottom: 8px;
+}
+
+#lettersGuessedList {
+	font-size: 32px;
+	font-weight: bolder;
+	color: #FF0000;
+}
