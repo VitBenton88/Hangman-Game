@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HANGMAN</title>
+</head>
+<body>
+	<h2>Hint: U.S. States</h2>
+
+	<script type="text/javascript">
+
+		//beginning of variables
+// ------------------------------------------------------------------------------//
+		var wins = 0;
+		var guessesAllow = 6;
+		var passwords = ["texas","florida","washington","georgia","alabama","alaska","idaho","virginia","michigan"];
+		var guesses = [];
+		var randNum = Math.floor(Math.random() * passwords.length);
+		var selectedPasswordArray = passwords[randNum].split("");	
+		var selectedPassword = passwords[randNum];
+		var hiddenPassword = [];
+
+		//end of variables
+// ------------------------------------------------------------------------------//
+
+	//function that produces loop to generate hidden password (With underscores)
+
+	function passwordGen(mkPass){
+		     //loop by the number of characters in selected password:
+
+    for (var i = 0; i < selectedPassword.length; i++) {
+
+  // push "_" into hiddenPassword array to generate an array of underscores at a count equal to password.length:
+
+    		hiddenPassword.push("_");
+    	};
+
+  //reveal password in console:
+
+        console.log("current password is: " + selectedPassword);
+
+  //log censored password:
+
+        console.log(hiddenPassword);
+
+  //log wins tally
+
+        console.log("Your wins: " + wins);
+    };
+
+  //function to subtract from guesses:
+
+    function subGuesses(subtract){
+        guessesAllow = guessesAllow-1;
+        console.log("You have " + guessesAllow + " wrong guesses left");
+    };
+
+  //function to add to wins:
+
+  function addWins(subtract){
+      wins = wins++;
+    };
+
+//function that checks to see if a score can be tallyed
+  function scoreCheck(x,y){
+
+    for (var i = 0; i < selectedPassword.length; i++){
+
+      if (x[i] == y[i]) {
+        wins = wins++;
+      };
+    };
+  };
+
+// ------------------------------------------------------------------------------//
+
+		//at window load:
+
+		 window.onload = function(load){
+
+		//generate password:
+
+      	passwordGen();
+
+      	console.log(selectedPasswordArray);
+    };
+
+// ------------------------------------------------------------------------------//
+		//when key is pressed:
+
+      document.onkeypress = function(startGame){
+
+      	//capture keypress into variable:
+
+      	var keyChoice = event.key;
+
+      	//collect key presses into guesses array:
+
+      	guesses.push(keyChoice);
+
+        //loop to compare keypress character to password character and if true, reveal letter:
+
+      	for (var i = 0; i < selectedPassword.length; i++) {
+
+      		//if key choice equals correct letter, convert i index of hiddenPassword to i index of selectedPassword, revealing the correct letter:
+
+          	if (keyChoice == selectedPassword.charAt(i)){
+
+          	    hiddenPassword[i] = selectedPassword[i];
+              };
+        };
+
+        if (guesses[i]!==selectedPassword.charAt(i)){
+
+            subGuesses();
+        };
+
+        console.log("Your guesses: " + guesses);
+        console.log(hiddenPassword);
+        console.log("Your wins: " + wins);
+        console.log(selectedPasswordArray);
+      };
+	</script>
+
+</body>
+</html>

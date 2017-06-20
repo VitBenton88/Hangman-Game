@@ -4,14 +4,23 @@ body {
 }
 
 .wrap {
-	width: 100%;
-	margin: 100px auto;
+	width: 400px;
+	margin-top: 100px;
+	float: left;
 }
 
 h1 {
 	font-size: 200%;
 	font-family: "Lobster", sans-serif;
 	margin-bottom: 20px;
+}
+
+h2 {
+	font-size: 170%;
+	font-family: "Lobster", sans-serif;
+	margin: 30px 0 20px 0;
+	text-decoration: underline;
+	color: grey;
 }
 
 p {	
@@ -23,10 +32,9 @@ p {
 	margin-bottom: 20px;
 	color: #5cb85c;
 	font-weight: bold;
-
 }
 
-#wins, #losses, #winsValue, #lossesValue {
+#wins, #guesses, #winsValue, #guessesValue {
 	display: inline;
 }
 
@@ -38,4 +46,49 @@ p {
 	font-size: 32px;
 	font-weight: bolder;
 	color: #FF0000;
+}
+
+.hangman {
+	width: 100px;
+	margin-top: 100px;
+	margin-right: 450px;
+	float: right;
+	text-align: center;
+}
+
+.hangman p {
+	font-weight: bolder;
+	font-size: 50px;
+	color: black;
+}
+
+.body, .leftArm, .rightArm, .leftLeg, .rightLeg  {
+	display: inline;
+	visibility: hidden;
+}
+
+.head {
+	visibility: hidden;
+}
+
+.hint {
+	font-weight: bolder;
+	margin-bottom: 20px;
+	color: #4899B1;
+	background-color: #CDECF5;
+	font-style: italic;
+	text-align: center;
+	margin-bottom: 10px;
+	padding: 20px;
+	width: 40%;
+	border: 5px solid #5BC0DE;
+	border-radius: 15px;
+}
+
+#password {
+	margin-top: 20px;
+	letter-spacing: 20px;
+	font-weight: bolder;
+	font-size: 36px;
+	visibility: ;
 }
