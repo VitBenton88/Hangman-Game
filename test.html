@@ -66,18 +66,21 @@
       wins = wins++;
     };
 
-//function that checks to see if a score can be tallyed
+//function that checks to see if a score can be tallyed, essentially checking for a win
   function scoreCheck(){
 
-      //declare tow variables that join the two arrays whose values equal each character of the password
+      //declare two variables that join the two arrays whose values equal each character of the password
 
      var joinedPass = selectedPasswordArray.join("");
      var joinedHiddenPass = hiddenPassword.join("");
+
+      //compare them, if they match then a win and reset occurs
 
       if (joinedPass == joinedHiddenPass) {
         confirm("YOU GOT IT!");
         wins++;
         console.log("Your new score is: " + wins);
+        guesses = [];
         hiddenPassword = [];
         selectedPassword;
         selectedPasswordArray = [];
@@ -89,7 +92,7 @@
   //function that resets the game after too many incorrect guesses
 
   function resetGame (reset){
-
+          guesses = [];
           hiddenPassword = [];
           guessesAllow = 6;
           passGen();
@@ -156,6 +159,8 @@
               };
 
           };
+
+
 //----------------------------------------------------------------------------//
           // CODE FOR A LOSS BEGINS:
 
