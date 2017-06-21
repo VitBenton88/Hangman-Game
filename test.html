@@ -12,11 +12,10 @@
 // ------------------------------------------------------------------------------//
 		var wins = 0;
 		var guessesAllow = 6;
-		var passwords = ["texas","florida","washington","georgia","alabama","alaska","idaho","virginia","michigan"];
+		var passwords = ["texas","florida","washington","georgia","alabama","alaska","idaho","virginia","michigan","california","wisconsin","oregon","nevada","oklahoma"];
+    var selectedPassword;
+    var selectedPasswordArray = [];
 		var guesses = [];
-		var randNum = Math.floor(Math.random() * passwords.length);
-		var selectedPasswordArray = passwords[randNum].split("");	
-		var selectedPassword = passwords[randNum];
 		var hiddenPassword = [];
 
 		//end of variables
@@ -24,9 +23,23 @@
 
   //FUNCTIONS:
 
+  //function that selects password randomly
+
+  function passGen(mkPass){
+
+    var randNum = Math.floor(Math.random() * passwords.length);
+    selectedPassword = passwords[randNum];
+    selectedPasswordArray = selectedPassword.split(""); 
+
+      //reveal password in console:
+
+    console.log("current password is: " + selectedPassword);
+
+  };
+
 	//function that produces loop to generate hidden password (With underscores)
 
-	function passwordGen(mkPass){
+	function HiddenPasswordGen(mkHidPass){
 		     //loop by the number of characters in selected password:
 
     for (var i = 0; i < selectedPassword.length; i++) {
@@ -54,14 +67,34 @@
     };
 
 //function that checks to see if a score can be tallyed
-  function scoreCheck(x,y){
+  function scoreCheck(){
 
-    for (var i = 0; i < selectedPassword.length; i++){
+      //declare tow variables that join the two arrays whose values equal each character of the password
 
-      if (x[i] == y[i]) {
-        wins = wins++;
-      };
+     var joinedPass = selectedPasswordArray.join("");
+     var joinedHiddenPass = hiddenPassword.join("");
+
+      if (joinedPass == joinedHiddenPass) {
+        confirm("YOU GOT IT!");
+        wins++;
+        console.log("Your new score is: " + wins);
+        hiddenPassword = [];
+        selectedPassword;
+        selectedPasswordArray = [];
+        passGen();
+        HiddenPasswordGen();
     };
+  };
+
+  //function that resets the game after too many incorrect guesses
+
+  function resetGame (reset){
+
+          hiddenPassword = [];
+          guessesAllow = 6;
+          passGen();
+          HiddenPasswordGen();
+
   };
 
 // ------------------------------------------------------------------------------//
@@ -70,16 +103,14 @@
 
 	window.onload = function(load){
 
-		//generate password:
+    //select password:
 
-      	passwordGen();
+      passGen();
 
-    };
+		//generate hiden password:
 
+      HiddenPasswordGen();
 
-  //reveal password in console:
-
-        console.log("current password is: " + selectedPassword);
 
   //log wins tally
 
@@ -88,6 +119,8 @@
   // log allowed incorrect guesses:
 
        console.log("Incorrect guesses left: " + guessesAllow);
+
+};//END OF WINDOW.ONLOAD
 
 // ------------------------------------------------------------------------------//
 		//when key is pressed:
@@ -123,6 +156,8 @@
               };
 
           };
+//----------------------------------------------------------------------------//
+          // CODE FOR A LOSS BEGINS:
 
         // the previous if statement is skipped with each correct key so the if below is called, which triggers a subtraction from the guessAllow count, in other words if a wrong key is pressed the guess count decreases.
 
@@ -133,16 +168,38 @@
         //alert user when guess count runs down to zero, essentially ending the game.
 
         if (guessesAllow === 0){
-            confirm("GAME OVER: You ran out of guesses!");
+            var confLoss = confirm("GAME OVER: You ran out of guesses!");
+        };
+
+        //if the user selects OK, the game is reset:
+
+        if (confLoss == true){
+          resetGame();
         };
 
         console.log("Your guesses: " + guesses);
         console.log(hiddenPassword);
         console.log("Your wins: " + wins);
         //log guesses count:
-
         console.log("You now have " + guessesAllow + " wrong guesses left");
-      };
+
+
+              //CODE FOR A LOSS ENDS.
+//----------------------------------------------------------------------------//
+
+              //CODE FOR A WIN BEGINS:
+
+        //call function that checks if the selectedPasswordArray.array matches the hiddenPassword.array, and if it does a win is tallyed and a new password is generated:
+
+              scoreCheck();
+
+              //CODE FOR A WIN ENDS.
+//-------------------------------------------------
+
+
+      };//END OF document.onkeypress
+
+
 	</script>
 
 </body>
