@@ -9,6 +9,7 @@ var hangman = {
     selectedPasswordArray: [],
 	guesses: [],
 	hiddenPassword: [],
+	winsID: document.getElementById("wins"),
 
 	//----------------END OF PROPERTIES
 
@@ -16,53 +17,54 @@ var hangman = {
 
 	passGen: function(mkPass){
 
-	    var randNum = Math.floor(Math.random() * hangman.passwords.length);
-	    hangman.selectedPassword = hangman.passwords[randNum];
-	    hangman.selectedPasswordArray = hangman.selectedPassword.split(""); 
-	    console.log("current password is: " + hangman.selectedPassword);
+	    var randNum = Math.floor(Math.random() * this.passwords.length);
+	    this.selectedPassword = this.passwords[randNum];
+	    this.selectedPasswordArray = this.selectedPassword.split(""); 
+	    console.log("current password is: " + this.selectedPassword);
 	},
 
 
 	HiddenPasswordGen: function(mkHidPass){
-    	for (var i = 0; i < hangman.selectedPassword.length; i++) {
+    	for (var i = 0; i < this.selectedPassword.length; i++) {
 
-    		hangman.hiddenPassword.push("_");
+    		this.hiddenPassword.push("_");
     	};
-
-        console.log(hangman.hiddenPassword);
 	},
 
 	subGuesses: function(subtractGuesses){
-		hangman.guessesAllow--;
+		this.guessesAllow--;
 	},
 
 	addWins: function(addToWins){
-		hangman.wins++
+		this.wins++
 	},
 
 	scoreCheck: function(checkForWin){
-    	var joinedPass = hangman.selectedPasswordArray.join("");
-    	var joinedHiddenPass = hangman.hiddenPassword.join("");
+    	var joinedPass = this.selectedPasswordArray.join("");
+    	var joinedHiddenPass = this.hiddenPassword.join("");
+    	var winsID = document.getElementById("wins");
 
     	if (joinedPass == joinedHiddenPass) {
 	        confirm("YOU GOT IT!");
-	        hangman.wins++;
-	        console.log("Your new score is: " + hangman.wins);
-	        hangman.guesses = [];
-	        hangman.hiddenPassword = [];
-	        hangman.selectedPassword="";
-	        hangman.selectedPasswordArray = [];
-	        hangman.passGen();
-	        hangman.HiddenPasswordGen();
+	        this.wins++;
+	        winsID.innerHTML = "Your wins: " + this.wins;
+	        this.guesses = [];
+	        this.hiddenPassword = [];
+	        this.selectedPassword="";
+	        this.selectedPasswordArray = [];
+	        this.guessesAllow = 10;
+	        this.passGen();
+	        this.HiddenPasswordGen();
     	};
 	},
 
     resetGame: function(reset){
-        hangman.guesses = [];
-        hangman.hiddenPassword = [];
-        hangman.guessesAllow = 10;
-        hangman.passGen();
-        hangman.HiddenPasswordGen();
+        this.guesses = [];
+        this.hiddenPassword = [];
+        this.guessesAllow = 10;
+        this.wins = 0;
+        this.passGen();
+        this.HiddenPasswordGen();
 	},
 	//----------------END OF METHODS
 
@@ -71,16 +73,29 @@ var hangman = {
 
 window.onload = function(load){
 
+	var winsID = document.getElementById("wins");
+	var guessesID = document.getElementById("guesses");
+	var guessesListID = document.getElementById("lettersGuessedList");
+	var passwordID = document.getElementById("password");
+	var winsID = document.getElementById("wins");
+
     hangman.passGen();
 
     hangman.HiddenPasswordGen();
 
-    console.log("Your wins: " + hangman.wins);
+    winsID.innerHTML = "Your wins: " + hangman.wins;
 
-    console.log("Incorrect guesses left: " + hangman.guessesAllow);
+    guessesID.innerHTML = "Incorrect Guesses Left: " + hangman.guessesAllow;
     };
 
 document.onkeypress = function(startGame){
+
+	var winsID = document.getElementById("wins");
+	var guessesID = document.getElementById("guesses");
+	var guessesListID = document.getElementById("lettersGuessedList");
+	var passwordID = document.getElementById("password");
+	var winsID = document.getElementById("wins");
+
 	var keyChoice = event.key;
 	var missed = true;
 	hangman.guesses.push(keyChoice);
@@ -105,10 +120,10 @@ document.onkeypress = function(startGame){
         hangman.resetGame();
     };
 
-    console.log("Your guesses: " + hangman.guesses);
-    console.log(hangman.hiddenPassword);
-    console.log("Your wins: " + hangman.wins);
-    console.log("You now have " + hangman.guessesAllow + " wrong guesses left");
+    guessesListID.innerHTML = "Your guesses: " + hangman.guesses;
+    passwordID.innerHTML = hangman.hiddenPassword.join("");
+    winsID.innerHTML = "Your wins: " + hangman.wins;
+    guessesID.innerHTML = "Incorrect Guesses Left: " + hangman.guessesAllow;
 
     hangman.scoreCheck();
 
