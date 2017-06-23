@@ -5,18 +5,18 @@ body {
 
 .wrap {
 	width: 400px;
-	margin-top: 100px;
-	float: left;
+	margin: 100px auto 0 auto;
+	text-align: center;
 }
 
 h1 {
-	font-size: 200%;
+	font-size: 60px;
 	font-family: "Lobster", sans-serif;
 	margin-bottom: 20px;
 }
 
 h2 {
-	font-size: 170%;
+	font-size: 50px;
 	font-family: "Lobster", sans-serif;
 	margin: 30px 0 20px 0;
 	text-decoration: underline;
@@ -28,6 +28,10 @@ p {
 
 }
 
+#theme {
+	font-style: italic;
+}
+
 #firstP {	
 	margin-bottom: 20px;
 	color: #5cb85c;
@@ -36,6 +40,7 @@ p {
 
 #wins, #guesses, #winsValue, #guessesValue {
 	display: inline;
+	font-size: 30px;
 }
 
 #lettersGuessed {
@@ -71,14 +76,14 @@ p {
 	visibility: hidden;
 }
 
-.hint {
+#hint {
 	font-weight: bolder;
 	margin-bottom: 20px;
 	color: #4899B1;
 	background-color: #CDECF5;
 	font-style: italic;
 	text-align: center;
-	margin-bottom: 10px;
+	margin:0 auto 10px auto;
 	padding: 20px;
 	width: 40%;
 	border: 5px solid #5BC0DE;
